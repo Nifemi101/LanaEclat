@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { Menu, X } from "lucide-react"; // Make sure you have lucide-react installed
+import { Link } from "react-router-dom";
+import { Menu, X } from "lucide-react";
 
 const Navbar = () => {
-  const navLinks = ["Home", "About Us"];
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
@@ -13,30 +13,36 @@ const Navbar = () => {
                    border border-white/40 rounded-full 
                    shadow-sm transition-all duration-300"
       >
-
+        {/* Logo Section */}
         <div className="flex items-center">
-          <h2 className="text-[#B04A6B] font-serif italic text-2xl font-bold tracking-wide">
-            Lana Eclat
-          </h2>
+          <Link to="/">
+            <h2 className="text-[#B04A6B] font-serif italic text-2xl font-bold tracking-wide cursor-pointer">
+              Lana Eclat
+            </h2>
+          </Link>
         </div>
 
-
+        {/* Desktop Navigation */}
         <div className="hidden md:flex items-center space-x-8">
-          {navLinks.map((link) => (
-            <a
-              key={link}
-              href={`#${link.toLowerCase().replace(" ", "-")}`}
-              className="text-gray-800 text-sm font-medium tracking-wide hover:text-[#B04A6B] transition-colors"
-            >
-              {link}
-            </a>
-          ))}
+          <Link
+            to="/"
+            className="text-gray-800 text-sm font-medium tracking-wide hover:text-[#B04A6B] transition-colors"
+          >
+            Home
+          </Link>
+          <Link
+            to="/about-us"
+            className="text-gray-800 text-sm font-medium tracking-wide hover:text-[#B04A6B] transition-colors"
+          >
+            About Us
+          </Link>
+
           <button className="bg-[#B04A6B] text-white uppercase tracking-[0.15em] text-xs font-semibold px-7 py-3 rounded-full hover:bg-[#913b57] transition-all duration-300">
             BOOK NOW
           </button>
         </div>
 
-      
+        {/* Mobile Hamburger Menu Toggle */}
         <button
           className="md:hidden text-[#B04A6B] p-2 focus:outline-none"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -45,18 +51,24 @@ const Navbar = () => {
         </button>
       </nav>
 
+      {/* Mobile Menu Dropdown */}
       {isMobileMenuOpen && (
         <div className="absolute top-[120%] left-0 w-full bg-white/90 backdrop-blur-xl border border-white/50 shadow-xl rounded-2xl p-6 flex flex-col items-center space-y-6 md:hidden animate-in fade-in slide-in-from-top-4 duration-300">
-          {navLinks.map((link) => (
-            <a
-              key={link}
-              href={`#${link.toLowerCase().replace(" ", "-")}`}
-              className="text-gray-800 text-lg font-medium hover:text-[#B04A6B] transition-colors"
-              onClick={() => setIsMobileMenuOpen(false)} // Close menu on click
-            >
-              {link}
-            </a>
-          ))}
+          <Link
+            to="/"
+            className="text-gray-800 text-lg font-medium hover:text-[#B04A6B] transition-colors"
+            onClick={() => setIsMobileMenuOpen(false)}
+          >
+            Home
+          </Link>
+          <Link
+            to="/about-us"
+            className="text-gray-800 text-lg font-medium hover:text-[#B04A6B] transition-colors"
+            onClick={() => setIsMobileMenuOpen(false)}
+          >
+            About Us
+          </Link>
+
           <button className="bg-[#B04A6B] text-white uppercase tracking-[0.2em] text-[9px] font-bold px-5 py-4 rounded-full hover:bg-[#913b57] transition-all duration-300 w-fit min-w-27 leading-none">
             BOOK NOW
           </button>
