@@ -36,6 +36,12 @@ const Navbar = () => {
           >
             About Us
           </Link>
+          <Link
+            to="/services"
+            className="text-gray-800 text-sm font-medium tracking-wide hover:text-[#B04A6B] transition-colors"
+          >
+            Services
+          </Link>
 
           <button className="bg-[#B04A6B] text-white uppercase tracking-[0.15em] text-xs font-semibold px-7 py-3 rounded-full hover:bg-[#913b57] transition-all duration-300">
             BOOK NOW
@@ -67,6 +73,13 @@ const Navbar = () => {
             onClick={() => setIsMobileMenuOpen(false)}
           >
             About Us
+          </Link>
+
+           <Link
+            to="/services"
+            className="text-gray-800 text-lg font-medium hover:text-[#B04A6B] transition-colors"
+          >
+            Services
           </Link>
 
           <button className="bg-[#B04A6B] text-white uppercase tracking-[0.2em] text-[9px] font-bold px-5 py-4 rounded-full hover:bg-[#913b57] transition-all duration-300 w-fit min-w-27 leading-none">
