@@ -13,7 +13,7 @@ const Navbar = () => {
                    border border-white/40 rounded-full 
                    shadow-sm transition-all duration-300"
       >
-        {/* Logo Section */}
+        {/* Logo */}
         <div className="flex items-center">
           <Link to="/">
             <h2 className="text-[#B04A6B] font-serif italic text-2xl font-bold tracking-wide cursor-pointer">
@@ -22,7 +22,7 @@ const Navbar = () => {
           </Link>
         </div>
 
-        {/* Desktop Navigation */}
+        {/* Desktop nav View */}
         <div className="hidden md:flex items-center space-x-8">
           <Link
             to="/"
@@ -48,7 +48,7 @@ const Navbar = () => {
           </button>
         </div>
 
-        {/* Mobile Hamburger Menu Toggle */}
+      {/*   Mobile nav view */}
         <button
           className="md:hidden text-[#B04A6B] p-2 focus:outline-none"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
