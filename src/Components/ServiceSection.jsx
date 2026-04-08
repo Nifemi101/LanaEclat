@@ -73,9 +73,16 @@ const TreatmentsSection = () => {
         )
         .fromTo(
           ".anim-card",
-          { opacity: 0, y: 60 },
-          { opacity: 1, y: 0, duration: 0.9, ease, stagger: 0.15 },
-          "-=0.3",
+          { opacity: 0, y: 40 }, // Reduced y distance (less pixels to move = less lag)
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: "power2.out",
+            stagger: 0.1,
+            force3D: true,
+          },
+          "-=0.2", //Fix last card animation
         );
     },
     { scope: sectionRef },

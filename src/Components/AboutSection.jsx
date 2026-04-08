@@ -25,18 +25,18 @@ const AboutSection = () => {
       tl.fromTo(
         ".anim-label",
         { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.7, ease },
+        { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" },
       )
         .fromTo(
           ".anim-heading",
           { opacity: 0, y: 40 },
-          { opacity: 1, y: 0, duration: 0.9, ease },
-          "-=0.4",
+          { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" },
+          "-=0.5",
         )
         .fromTo(
           ".anim-italic",
           { opacity: 0, y: 40, skewY: 3 },
-          { opacity: 1, y: 0, skewY: 0, duration: 0.9, ease },
+          { opacity: 1, y: 0, skewY: 0, duration: 0.8, ease: "power3.out" },
           "-=0.6",
         )
         .fromTo(
@@ -59,9 +59,17 @@ const AboutSection = () => {
         )
         .fromTo(
           ".anim-card",
-          { opacity: 0, x: 60, scale: 0.96 },
-          { opacity: 1, x: 0, scale: 1, duration: 1.1, ease },
-          "-=1.2",
+          { opacity: 0, x: 40, scale: 0.98 },
+          {
+            opacity: 1,
+            x: 0,
+            scale: 1,
+            duration: 1,
+            ease: "power2.out",
+            force3D: true, 
+            clearProps: "transform", 
+          },
+          "-=0.4",
         )
         .fromTo(
           ".anim-card-text",
@@ -70,7 +78,7 @@ const AboutSection = () => {
           "-=0.5",
         );
     },
-    { scope: sectionRef },
+    { scope: sectionRef }, //Fix image animation
   );
 
   return (
