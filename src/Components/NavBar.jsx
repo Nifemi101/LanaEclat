@@ -7,15 +7,6 @@ const Navbar = () => {
 
   return (
     <>
-      {/*BACKGROUND BLUR OVERLAY */}
-      {/* This div covers the entire screen. used 'fixed' and a high z-index. */}
-      {isMobileMenuOpen && (
-        <div
-          className="fixed inset-0 w-screen h-screen bg-black/10 backdrop-blur-md z-45 animate-in fade-in duration-300"
-          onClick={() => setIsMobileMenuOpen(false)} // Closes menu when clicking the blurred area
-        />
-      )}
-
       {/* NAVBAR */}
       <header className="fixed top-6 left-1/2 -translate-x-1/2 w-[95%] max-w-6xl z-50">
         <nav
@@ -42,7 +33,7 @@ const Navbar = () => {
               Home
             </Link>
             <Link
-              to="/about-us"
+              to="/about"
               className="text-gray-800 text-sm font-medium tracking-wide hover:text-[#B04A6B] transition-colors"
             >
               About Us
