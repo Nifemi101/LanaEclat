@@ -3,6 +3,7 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import skinIMG from "../assets/IMG 1.jpg";
+import { Link } from "react-router-dom";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -69,7 +70,7 @@ const AboutSection = () => {
           "-=0.5",
         );
     },
-    { scope: sectionRef }, // 👈 scopes all class selectors to this ref
+    { scope: sectionRef },
   );
 
   return (
@@ -102,9 +103,11 @@ const AboutSection = () => {
           brings professional-grade skincare with a personal touch that feels
           like home.
         </p>
-        <button className="mt-6 px-8 py-3 bg-pink-800 text-white rounded-full font-medium hover:bg-pink-900 transition-colors duration-300 shadow-lg">
-          Learn More
-        </button>
+        <Link to="/about">
+          <button className="mt-6 px-8 py-3 bg-pink-800 text-white rounded-full font-medium hover:bg-pink-900 transition-colors duration-300 shadow-lg">
+            Learn More
+          </button>
+        </Link>
       </div>
 
       {/* Right Card */}
@@ -117,18 +120,16 @@ const AboutSection = () => {
             className="absolute inset-0 w-full h-full object-cover object-center"
           />
 
-          {/* Dark gradient overlay for text readability */}
+          {/* Dark gradient overlay for text*/}
           <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/40 to-transparent" />
 
           {/* Card Text */}
           <div className="anim-card-text relative z-10 text-center">
-            {/* Combined text into a single paragraph */}
             <p className="text-white font-serif text-3xl font-semibold leading-snug drop-shadow-md">
               Real skin. Real results.{" "}
               <span className="italic font-bold">Real glow.</span>
             </p>
 
-            {/* Subtitle remains unchanged */}
             <p className="text-white/70 text-sm mt-4 tracking-wide">
               Your glow journey starts here.
             </p>
