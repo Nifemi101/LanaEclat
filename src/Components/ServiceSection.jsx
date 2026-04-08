@@ -2,6 +2,7 @@ import { useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Link } from "react-router-dom";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -137,18 +138,22 @@ const TreatmentsSection = () => {
               <span className="text-[#9a7a84] text-xs flex items-center gap-1">
                 🕐 {t.duration}
               </span>
-              <button className="text-[#b5345a] text-sm font-semibold hover:gap-2 transition-all">
-                Book →
-              </button>
+              <Link to="/booking">
+                <button className="text-[#b5345a] text-sm font-semibold hover:gap-2 transition-all">
+                  Book →
+                </button>
+              </Link>
             </div>
           </div>
         ))}
       </div>
 
       <div className="flex justify-center mt-10">
-        <button className="px-7 py-3 bg-[#b5345a] text-white text-sm font-semibold rounded-full hover:bg-[#8f2244] transition-colors duration-300 shadow-md tracking-wide">
-          View All Services →
-        </button>
+        <Link to="/services">
+          <button className="px-7 py-3 bg-[#b5345a] text-white text-sm font-semibold rounded-full hover:bg-[#8f2244] transition-colors duration-300 shadow-md tracking-wide">
+            View All Services →
+          </button>
+        </Link>
       </div>
     </section>
   );
