@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import { Link } from "react-router-dom";
 
 gsap.registerPlugin(useGSAP);
 
@@ -85,13 +86,18 @@ const Herosection = () => {
         </p>
 
         <div className="flex space-x-5 mb-12">
-        
+        <Link
+        to= "/booking">
           <button className="hero-btn bg-pink-800 text-white p-4 md:px-8 md:py-3 text-xs md:text-base rounded-full font-medium hover:bg-pink-900 transition-colors shadow-lg hover:shadow-pink-200/50 whitespace-nowrap">
             BOOK APPOINTMENT
           </button>
+          </Link>
+          <Link
+          to= "/services">
           <button className="hero-btn border-2 border-pink-200 text-pink-800 px-3 py-2 md:px-8 md:py-3 text-xs md:text-base rounded-full font-medium hover:bg-pink-800 hover:text-white transition-colors whitespace-nowrap">
             OUR SERVICES
           </button>
+          </Link>
         </div>
 
         {/* STATS SECTION */}
