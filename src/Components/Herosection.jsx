@@ -6,9 +6,9 @@ gsap.registerPlugin(useGSAP);
 
 const Herosection = () => {
   const heroContainerRef = useRef(null);
-  const marqueeRef = useRef(null);
+  const ribbonRef = useRef(null);
 
-  const tickerItems = [
+  const ribbonItems = [
     "VISIBLE RESULTS",
     "GENTLE TOUCH",
     "REAL GLOW",
@@ -16,16 +16,15 @@ const Herosection = () => {
     "PROFESSIONAL SKINCARE",
   ];
 
-  const seamlessItems = [
-    ...tickerItems,
-    ...tickerItems,
-    ...tickerItems,
-    ...tickerItems,
+  const movingItems = [
+    ...ribbonItems,
+    ...ribbonItems,
+    ...ribbonItems,
+    ...ribbonItems,
   ];
 
   useGSAP(
     () => {
-      // Switched to power4.out for a smoother, more "luxurious" deceleration
       const timeline = gsap.timeline({ defaults: { ease: "power4.out" } });
 
       timeline
@@ -43,7 +42,7 @@ const Herosection = () => {
             opacity: 0, 
             duration: 1, 
             stagger: 0.15, 
-            clearProps: "all" // Clears GSAP styles so CSS hovers work perfectly
+            clearProps: "all" 
           },
           "-=0.5",
         )
@@ -57,7 +56,7 @@ const Herosection = () => {
   );
 
   useGSAP(() => {
-    gsap.to(marqueeRef.current, {
+    gsap.to(ribbonRef.current, {
       xPercent: -50,
       repeat: -1,
       duration: 25,
@@ -86,7 +85,7 @@ const Herosection = () => {
         </p>
 
         <div className="flex space-x-5 mb-12">
-          {/* FIX: Changed transition-all to transition-colors to stop CSS from fighting GSAP */}
+        
           <button className="hero-btn bg-pink-800 text-white p-4 md:px-8 md:py-3 text-xs md:text-base rounded-full font-medium hover:bg-pink-900 transition-colors shadow-lg hover:shadow-pink-200/50 whitespace-nowrap">
             BOOK APPOINTMENT
           </button>
@@ -132,10 +131,10 @@ const Herosection = () => {
         </div>
       </div>
 
-      {/* MARQUEE BAR*/}
+      {/* text ribbon*/}
       <div className="w-full bg-[#B04A6B] py-3 md:py-5 overflow-hidden flex whitespace-nowrap relative z-10">
-        <div ref={marqueeRef} className="flex w-max items-center">
-          {seamlessItems.map((item, index) => (
+        <div ref={ribbonRef} className="flex w-max items-center">
+          {movingItems.map((item, index) => (
             <div key={index} className="flex items-center">
               <span className="text-white text-[10px] md:text-xs font-bold tracking-[0.2em] uppercase">
                 {item}
