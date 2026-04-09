@@ -1,4 +1,3 @@
-import MainLayout from "../Layout/MainLayout"
 import Herosection from "../Components/Herosection"
 import AboutSection from "../Components/AboutSection"
 import ServiceSection from "../Components/ServiceSection"
@@ -7,7 +6,6 @@ import BannerSection from "../Components/BannerSection"
 const HomePage = () => {
   return (
     <>
-    <MainLayout />
     <Herosection />
     <AboutSection />
     <ServiceSection />
