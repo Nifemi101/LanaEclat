@@ -3,12 +3,18 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Link } from "react-router-dom";
+import { HugeiconsIcon } from "@hugeicons/react";
+import {
+  DropletIcon,
+  FlowerIcon,
+  SparklesIcon,
+} from "@hugeicons/core-free-icons";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 const treatments = [
   {
-    icon: "💧",
+    icon: DropletIcon,
     badge: "STARTER FACIAL",
     title: "Hydrating Facial",
     description:
@@ -16,7 +22,7 @@ const treatments = [
     duration: "45 mins",
   },
   {
-    icon: "🌸",
+    icon: FlowerIcon,
     badge: null,
     title: "Sensitive / Calming Facial",
     description:
@@ -24,7 +30,7 @@ const treatments = [
     duration: "45 mins",
   },
   {
-    icon: "✦",
+    icon: SparklesIcon,
     badge: null,
     title: "Exfoliating Facial",
     description:
@@ -125,7 +131,9 @@ const TreatmentsSection = () => {
             )}
 
             {/* Icon */}
-            <div className="text-3xl mt-2">{t.icon}</div>
+            <div className="mt-2">
+             <HugeiconsIcon icon={t.icon} size={32} color="#1e0e14" />
+            </div>
 
             {/* Title & Description */}
             <div>

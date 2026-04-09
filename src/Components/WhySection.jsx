@@ -3,28 +3,35 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Link } from "react-router-dom";
+import { HugeiconsIcon } from "@hugeicons/react";
+import {
+  ShampooIcon,
+  TestTubeDiagonalIcon,
+  HealtcareIcon,
+  SparklesIcon,
+} from "@hugeicons/core-free-icons";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 const features = [
   {
-    icon: "🧴",
+    icon: ShampooIcon,
     title: "Quality Products",
     description:
       "Only premium, skin-safe formulations used in every treatment.",
   },
   {
-    icon: "🧪",
+    icon: TestTubeDiagonalIcon,
     title: "Sterilized Tools",
     description: "Every tool is cleaned and sterilized before each session.",
   },
   {
-    icon: "🤲",
+    icon: HealtcareIcon,
     title: "Personalized Care",
     description: "Tailored approach for your unique skin type and concerns.",
   },
   {
-    icon: "✨",
+    icon: SparklesIcon,
     title: "Visible Results",
     description: "See the difference from your very first session.",
   },
@@ -127,7 +134,13 @@ const WhySection = () => {
         <ul className="flex flex-col gap-5">
           {features.map((f, i) => (
             <li key={i} className="anim-feature flex items-start gap-4">
-              <span className="text-2xl mt-0.5">{f.icon}</span>
+              <HugeiconsIcon
+                icon={f.icon}
+                size={22}
+                color="#b5345a"
+                className="mt-0.5 shrink-0"
+              />
+
               <div>
                 <p className="font-semibold text-[#1e0e14] text-sm mb-0.5">
                   {f.title}
@@ -155,7 +168,6 @@ const WhySection = () => {
               First-Time <br /> Clients
             </h3>
 
-         
             <span className="text-[#c9a84c] text-xl">◆</span>
 
             {/* Description */}
