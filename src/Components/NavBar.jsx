@@ -24,7 +24,7 @@ const Navbar = () => {
           <div className="flex items-center">
             <Link to="/">
               <h2 className="text-[#B04A6B] font-serif italic text-2xl font-bold tracking-wide cursor-pointer">
-                Lana Eclat
+                Lana Éclat
               </h2>
             </Link>
           </div>
