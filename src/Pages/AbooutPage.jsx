@@ -16,19 +16,22 @@ const values = [
   {
     icon: Leaf01Icon,
     title: "Natural Approach",
-    description: "We work with your skin's natural processes, not against them.",
+    description:
+      "We work with your skin's natural processes, not against them.",
     highlight: false,
   },
   {
     icon: MicroscopeIcon,
     title: "Scientific Care",
-    description: "Evidence-based skincare techniques rooted in dermatological science.",
+    description:
+      "Evidence-based skincare techniques rooted in dermatological science.",
     highlight: false,
   },
   {
     icon: HeartCheckIcon,
     title: "Personal Touch",
-    description: "You're not a client — you're a guest, treated with warmth every time.",
+    description:
+      "You're not a client — you're a guest, treated with warmth every time.",
     highlight: true,
   },
   {
@@ -39,7 +42,7 @@ const values = [
   },
 ];
 
-const  AbooutPage = () => {
+const AbooutPage = () => {
   const heroRef = useRef(null);
   const storyRef = useRef(null);
   const valuesRef = useRef(null);
@@ -49,11 +52,37 @@ const  AbooutPage = () => {
   useGSAP(
     () => {
       const ease = "power4.out";
-      gsap.timeline()
-        .fromTo(".anim-label",   { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.6, ease })
-        .fromTo(".anim-heading", { opacity: 0, y: 50 },  { opacity: 1, y: 0, duration: 1, ease }, "-=0.3")
-        .fromTo(".anim-divider", { scaleX: 0, opacity: 0 }, { scaleX: 1, opacity: 1, duration: 0.8, ease, transformOrigin: "center" }, "-=0.5")
-        .fromTo(".anim-sub",     { opacity: 0, y: 20 },  { opacity: 1, y: 0, duration: 0.8, ease }, "-=0.4");
+      gsap
+        .timeline()
+        .fromTo(
+          ".anim-label",
+          { opacity: 0, y: 16 },
+          { opacity: 1, y: 0, duration: 0.6, ease },
+        )
+        .fromTo(
+          ".anim-heading",
+          { opacity: 0, y: 50 },
+          { opacity: 1, y: 0, duration: 1, ease },
+          "-=0.3",
+        )
+        .fromTo(
+          ".anim-divider",
+          { scaleX: 0, opacity: 0 },
+          {
+            scaleX: 1,
+            opacity: 1,
+            duration: 0.8,
+            ease,
+            transformOrigin: "center",
+          },
+          "-=0.5",
+        )
+        .fromTo(
+          ".anim-sub",
+          { opacity: 0, y: 20 },
+          { opacity: 1, y: 0, duration: 0.8, ease },
+          "-=0.4",
+        );
     },
     { scope: heroRef },
   );
@@ -61,13 +90,43 @@ const  AbooutPage = () => {
   useGSAP(
     () => {
       const ease = "power4.out";
-      gsap.timeline({
-        scrollTrigger: { trigger: storyRef.current, start: "top 80%", once: true },
-      })
-        .fromTo(".anim-card",       { opacity: 0, x: -60, scale: 0.96 }, { opacity: 1, x: 0, scale: 1, duration: 1.1, ease })
-        .fromTo(".anim-story-head", { opacity: 0, y: 40 },               { opacity: 1, y: 0, duration: 0.9, ease }, "-=0.8")
-        .fromTo(".anim-story-div",  { scaleX: 0, opacity: 0 },           { scaleX: 1, opacity: 1, duration: 0.7, ease, transformOrigin: "left" }, "-=0.5")
-        .fromTo(".anim-story-para", { opacity: 0, y: 24 },               { opacity: 1, y: 0, duration: 0.8, ease, stagger: 0.15 }, "-=0.4");
+      gsap
+        .timeline({
+          scrollTrigger: {
+            trigger: storyRef.current,
+            start: "top 80%",
+            once: true,
+          },
+        })
+        .fromTo(
+          ".anim-card",
+          { opacity: 0, x: -60, scale: 0.96 },
+          { opacity: 1, x: 0, scale: 1, duration: 1.1, ease },
+        )
+        .fromTo(
+          ".anim-story-head",
+          { opacity: 0, y: 40 },
+          { opacity: 1, y: 0, duration: 0.9, ease },
+          "-=0.8",
+        )
+        .fromTo(
+          ".anim-story-div",
+          { scaleX: 0, opacity: 0 },
+          {
+            scaleX: 1,
+            opacity: 1,
+            duration: 0.7,
+            ease,
+            transformOrigin: "left",
+          },
+          "-=0.5",
+        )
+        .fromTo(
+          ".anim-story-para",
+          { opacity: 0, y: 24 },
+          { opacity: 1, y: 0, duration: 0.8, ease, stagger: 0.15 },
+          "-=0.4",
+        );
     },
     { scope: storyRef },
   );
@@ -75,13 +134,43 @@ const  AbooutPage = () => {
   useGSAP(
     () => {
       const ease = "power4.out";
-      gsap.timeline({
-        scrollTrigger: { trigger: valuesRef.current, start: "top 80%", once: true },
-      })
-        .fromTo(".anim-val-label",   { opacity: 0, y: 16 },     { opacity: 1, y: 0, duration: 0.6, ease })
-        .fromTo(".anim-val-heading", { opacity: 0, y: 40 },     { opacity: 1, y: 0, duration: 0.9, ease }, "-=0.3")
-        .fromTo(".anim-val-divider", { scaleX: 0, opacity: 0 }, { scaleX: 1, opacity: 1, duration: 0.7, ease, transformOrigin: "left" }, "-=0.4")
-        .fromTo(".anim-val-card",    { opacity: 0, y: 50 },     { opacity: 1, y: 0, duration: 0.8, ease, stagger: 0.14 }, "-=0.3");
+      gsap
+        .timeline({
+          scrollTrigger: {
+            trigger: valuesRef.current,
+            start: "top 80%",
+            once: true,
+          },
+        })
+        .fromTo(
+          ".anim-val-label",
+          { opacity: 0, y: 16 },
+          { opacity: 1, y: 0, duration: 0.6, ease },
+        )
+        .fromTo(
+          ".anim-val-heading",
+          { opacity: 0, y: 40 },
+          { opacity: 1, y: 0, duration: 0.9, ease },
+          "-=0.3",
+        )
+        .fromTo(
+          ".anim-val-divider",
+          { scaleX: 0, opacity: 0 },
+          {
+            scaleX: 1,
+            opacity: 1,
+            duration: 0.7,
+            ease,
+            transformOrigin: "left",
+          },
+          "-=0.4",
+        )
+        .fromTo(
+          ".anim-val-card",
+          { opacity: 0, y: 50 },
+          { opacity: 1, y: 0, duration: 0.8, ease, stagger: 0.14 },
+          "-=0.3",
+        );
     },
     { scope: valuesRef },
   );
@@ -89,13 +178,43 @@ const  AbooutPage = () => {
   useGSAP(
     () => {
       const ease = "power4.out";
-      gsap.timeline({
-        scrollTrigger: { trigger: teamRef.current, start: "top 80%", once: true },
-      })
-        .fromTo(".anim-team-label",   { opacity: 0, y: 16 },           { opacity: 1, y: 0, duration: 0.6, ease })
-        .fromTo(".anim-team-heading", { opacity: 0, y: 40 },           { opacity: 1, y: 0, duration: 0.9, ease }, "-=0.3")
-        .fromTo(".anim-team-divider", { scaleX: 0, opacity: 0 },       { scaleX: 1, opacity: 1, duration: 0.7, ease, transformOrigin: "center" }, "-=0.4")
-        .fromTo(".anim-team-card",    { opacity: 0, y: 50, scale: 0.97 }, { opacity: 1, y: 0, scale: 1, duration: 1, ease }, "-=0.3");
+      gsap
+        .timeline({
+          scrollTrigger: {
+            trigger: teamRef.current,
+            start: "top 80%",
+            once: true,
+          },
+        })
+        .fromTo(
+          ".anim-team-label",
+          { opacity: 0, y: 16 },
+          { opacity: 1, y: 0, duration: 0.6, ease },
+        )
+        .fromTo(
+          ".anim-team-heading",
+          { opacity: 0, y: 40 },
+          { opacity: 1, y: 0, duration: 0.9, ease },
+          "-=0.3",
+        )
+        .fromTo(
+          ".anim-team-divider",
+          { scaleX: 0, opacity: 0 },
+          {
+            scaleX: 1,
+            opacity: 1,
+            duration: 0.7,
+            ease,
+            transformOrigin: "center",
+          },
+          "-=0.4",
+        )
+        .fromTo(
+          ".anim-team-card",
+          { opacity: 0, y: 50, scale: 0.97 },
+          { opacity: 1, y: 0, scale: 1, duration: 1, ease },
+          "-=0.3",
+        );
     },
     { scope: teamRef },
   );
@@ -103,12 +222,31 @@ const  AbooutPage = () => {
   useGSAP(
     () => {
       const ease = "power4.out";
-      gsap.timeline({
-        scrollTrigger: { trigger: missionRef.current, start: "top 80%", once: true },
-      })
-        .fromTo(".anim-mission-label", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.6, ease })
-        .fromTo(".anim-mission-quote", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 1.1, ease }, "-=0.3")
-        .fromTo(".anim-mission-attr",  { opacity: 0 },        { opacity: 1, duration: 0.8, ease }, "-=0.3");
+      gsap
+        .timeline({
+          scrollTrigger: {
+            trigger: missionRef.current,
+            start: "top 80%",
+            once: true,
+          },
+        })
+        .fromTo(
+          ".anim-mission-label",
+          { opacity: 0, y: 16 },
+          { opacity: 1, y: 0, duration: 0.6, ease },
+        )
+        .fromTo(
+          ".anim-mission-quote",
+          { opacity: 0, y: 40 },
+          { opacity: 1, y: 0, duration: 1.1, ease },
+          "-=0.3",
+        )
+        .fromTo(
+          ".anim-mission-attr",
+          { opacity: 0 },
+          { opacity: 1, duration: 0.8, ease },
+          "-=0.3",
+        );
     },
     { scope: missionRef },
   );
@@ -144,13 +282,15 @@ const  AbooutPage = () => {
         <div
           className="anim-card shrink-0 w-full md:w-85 min-h-120 rounded-3xl relative overflow-hidden shadow-xl"
           style={{
-            background: "linear-gradient(160deg, #c0396a 0%, #b5345a 30%, #d4507a 55%, #e8a060 100%)",
+            background:
+              "linear-gradient(160deg, #c0396a 0%, #b5345a 30%, #d4507a 55%, #e8a060 100%)",
           }}
         >
           <div
             className="absolute inset-0 opacity-10"
             style={{
-              backgroundImage: "repeating-linear-gradient(135deg, #fff 0px, #fff 1px, transparent 1px, transparent 12px)",
+              backgroundImage:
+                "repeating-linear-gradient(135deg, #fff 0px, #fff 1px, transparent 1px, transparent 12px)",
             }}
           />
           <div className="absolute bottom-8 left-8 right-8 z-10">
@@ -160,7 +300,9 @@ const  AbooutPage = () => {
             <h3 className="font-serif text-white text-2xl font-semibold leading-snug mb-2">
               Where it all began
             </h3>
-            <p className="text-white/70 text-sm">A passion for skin. A dream for Kabba.</p>
+            <p className="text-white/70 text-sm">
+              A passion for skin. A dream for Kabba.
+            </p>
           </div>
         </div>
 
@@ -176,18 +318,21 @@ const  AbooutPage = () => {
             <div className="h-px flex-1 bg-[#e0b8c4]" />
           </div>
           <p className="anim-story-para text-[#4a3038] text-base leading-relaxed mb-5">
-            Lana Éclat Beauty Studio was born from a simple but powerful belief: every person deserves
-            professional skincare — no matter where they live. In the heart of Kabba, Kogi State, we
-            opened our doors to bring visible, lasting results to every skin type.
+            Lana Éclat Beauty Studio was born from a simple but powerful belief:
+            every person deserves professional skincare — no matter where they
+            live. In the heart of Kabba, Kogi State, we opened our doors to
+            bring visible, lasting results to every skin type.
           </p>
           <p className="anim-story-para text-[#4a3038] text-base leading-relaxed mb-5">
-            We didn't want to offer just another beauty service. We wanted a sanctuary — a place where
-            you could exhale, be seen, and walk out glowing with renewed confidence. A place where your
-            skin is treated as the unique canvas it truly is.
+            We didn't want to offer just another beauty service. We wanted a
+            sanctuary — a place where you could exhale, be seen, and walk out
+            glowing with renewed confidence. A place where your skin is treated
+            as the unique canvas it truly is.
           </p>
           <p className="anim-story-para text-[#4a3038] text-base leading-relaxed">
-            Today, Lana Eclat Beauty Studio stands as Kabba's dedicated facial studio — a space where
-            science meets warmth, and every treatment is a step toward your most luminous self.
+            Today, Lana Eclat Beauty Studio stands as Kabba's dedicated facial
+            studio — a space where science meets warmth, and every treatment is
+            a step toward your most luminous self.
           </p>
         </div>
       </section>
@@ -222,15 +367,14 @@ const  AbooutPage = () => {
                 }`}
               >
                 <div className="flex items-center gap-2">
-                  {v.highlight && (
-                    <span className="w-5 h-5 rounded-full border-2 border-[#b5345a] flex items-center justify-center">
-                      <span className="w-2 h-2 rounded-full bg-[#b5345a]" />
-                    </span>
-                  )}
                   <HugeiconsIcon icon={Icon} size={24} color="#b5345a" />
                 </div>
-                <h3 className="font-semibold text-[#1e0e14] text-sm">{v.title}</h3>
-                <p className="text-[#7a5a62] text-sm leading-relaxed">{v.description}</p>
+                <h3 className="font-semibold text-[#1e0e14] text-sm">
+                  {v.title}
+                </h3>
+                <p className="text-[#7a5a62] text-sm leading-relaxed">
+                  {v.description}
+                </p>
               </div>
             );
           })}
@@ -261,7 +405,7 @@ const  AbooutPage = () => {
             <div className="relative mb-6">
               <div className="w-28 h-28 rounded-full border-2 border-[#e0b8c4] p-1">
                 <img
-                  src= "img"
+                  src="img"
                   alt="Lana"
                   className="w-full h-full rounded-full object-cover object-top"
                 />
@@ -270,14 +414,17 @@ const  AbooutPage = () => {
                 <span className="w-2.5 h-2.5 rounded-full bg-[#b5345a]" />
               </span>
             </div>
-            <h3 className="font-serif text-[#1e0e14] text-xl font-semibold mb-1">Lana</h3>
+            <h3 className="font-serif text-[#1e0e14] text-xl font-semibold mb-1">
+              Lana
+            </h3>
             <p className="text-[#b5345a] text-[10px] font-bold tracking-[0.22em] uppercase mb-4">
               Founder &amp; Lead Esthetician
             </p>
             <div className="w-12 h-px bg-[#e0b8c4] mb-4" />
             <p className="text-[#7a5a62] text-sm leading-relaxed">
-              With years of professional skincare training and a passion for helping women radiate
-              confidence, Lana founded the studio to bring world-class facials to Kabba, Kogi State.
+              With years of professional skincare training and a passion for
+              helping women radiate confidence, Lana founded the studio to bring
+              world-class facials to Kabba, Kogi State.
             </p>
           </div>
         </div>
@@ -288,13 +435,15 @@ const  AbooutPage = () => {
         ref={missionRef}
         className="relative overflow-hidden px-8 md:px-16 lg:px-32 py-20 flex flex-col items-center justify-center text-center"
         style={{
-          background: "linear-gradient(135deg, #5a0e2a 0%, #8f1a40 40%, #7a1535 70%, #3d0818 100%)",
+          background:
+            "linear-gradient(135deg, #5a0e2a 0%, #8f1a40 40%, #7a1535 70%, #3d0818 100%)",
         }}
       >
         <div
           className="absolute inset-0 opacity-10 pointer-events-none"
           style={{
-            backgroundImage: "radial-gradient(circle, #fff 1px, transparent 1px)",
+            backgroundImage:
+              "radial-gradient(circle, #fff 1px, transparent 1px)",
             backgroundSize: "24px 24px",
           }}
         />
@@ -303,8 +452,9 @@ const  AbooutPage = () => {
             Our Mission
           </p>
           <p className="anim-mission-quote font-serif italic text-white text-2xl md:text-3xl lg:text-4xl leading-relaxed">
-            "To make every person who walks through our doors feel seen, cared for, and beautiful —
-            because glowing skin is not a luxury, it's a lifestyle."
+            "To make every person who walks through our doors feel seen, cared
+            for, and beautiful — because glowing skin is not a luxury, it's a
+            lifestyle."
           </p>
           <p className="anim-mission-attr text-white/40 text-[10px] font-semibold tracking-[0.25em] uppercase mt-8">
             — Lana Eclat Beauty Studio
