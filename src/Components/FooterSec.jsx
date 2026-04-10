@@ -60,7 +60,7 @@ const Footer = () => {
           <div className="flex items-center gap-3 mt-2">
             {/* Instagram */}
             <Link 
-              to="https://www.instagram.com/me_kemi?igsh=bmhzcmE4NHNvZGdp" // 2. Changed href to to
+              to="https://www.instagram.com/lanaeclat" 
               className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white/50 hover:border-[#b5345a] hover:text-[#b5345a] transition-all duration-300"
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
