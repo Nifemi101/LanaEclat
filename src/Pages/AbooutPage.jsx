@@ -9,6 +9,7 @@ import {
   HeartCheckIcon,
   SparklesIcon,
 } from "@hugeicons/core-free-icons";
+import CEO from "../assets/CEO Img.jpeg";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -405,7 +406,7 @@ const AbooutPage = () => {
             <div className="relative mb-6">
               <div className="w-28 h-28 rounded-full border-2 border-[#e0b8c4] p-1">
                 <img
-                  src="img"
+                  src= {CEO}
                   alt="Lana"
                   className="w-full h-full rounded-full object-cover object-top"
                 />
