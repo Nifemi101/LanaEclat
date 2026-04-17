@@ -1,16 +1,18 @@
 import { useState, useRef, useEffect } from "react";
+import { Link } from "react-router-dom";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { HugeiconsIcon } from "@hugeicons/react";
 import {
   ArrowRight01Icon,
-  StarIcon,
   PlusSignIcon,
   MinusSignIcon,
   Clock01Icon,
-  FlowerIcon,
-  SparklesIcon,
+  ShampooIcon,
+  TestTubeDiagonalIcon,
+  Mortarboard02Icon,
+  MailLove01Icon
 } from "@hugeicons/core-free-icons";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
@@ -32,7 +34,7 @@ const facials = [
     id: "facial-2",
     number: "02",
     name: "Glow facials",
-    badge: "MOST POPULAR",
+    badge: "POPULAR",
     badgeColor: "#9D174D",
     duration: "60 minutes",
     price: "₦18,000",
@@ -161,7 +163,7 @@ const AccordionItem = ({ item, index, isOpen, onToggle, contentRef }) => (
         </span>
         {item.badge && (
           <span
-            className="inline-flex self-start text-[9px] font-bold tracking-[0.2em] uppercase px-3 py-1 rounded-full text-white"
+            className="inline-flex self-start text-[7px] font-bold tracking-[0.2em] uppercase px-3 py-1 rounded-full text-white"
             style={{ backgroundColor: item.badgeColor }}
           >
             {item.badge}
@@ -198,9 +200,11 @@ const AccordionItem = ({ item, index, isOpen, onToggle, contentRef }) => (
           </p>
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div className="flex items-center gap-6">
-              <button className="bg-pink-800 text-white text-[10px] font-bold tracking-[0.2em] uppercase px-6 py-3 rounded-full hover:bg-pink-900 transition-colors duration-200">
-                Book This Treatment
-              </button>
+              <Link to="/booking">
+                <button className="bg-pink-800 text-white text-[10px] font-bold tracking-[0.2em] uppercase px-6 py-3 rounded-full hover:bg-pink-900 transition-colors duration-200">
+                  BOOK
+                </button>
+              </Link>
               <span className="text-[#9a7480] text-sm">
                 Session: {item.session}
               </span>
@@ -219,6 +223,9 @@ const ServicePage = () => {
   const heroRef = useRef(null);
   const facialsRef = useRef(null);
   const waxingRef = useRef(null);
+  const bannerRef = useRef(null);
+  // ── NEW ──
+  const offerRef = useRef(null);
 
   const [openId, setOpenId] = useState(null);
 
@@ -348,6 +355,68 @@ const ServicePage = () => {
     { scope: waxingRef },
   );
 
+  useGSAP(
+  () => {
+    const ease = "power3.out";
+    gsap.fromTo(
+      ".anim-banner-item",
+      { opacity: 0, y: 40, scale: 0.95 },
+      {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: 0.7,
+        ease,
+        stagger: 0.15,
+        scrollTrigger: {
+          trigger: bannerRef.current,
+          start: "top 80%",
+        },
+      },
+    );
+  },
+  { scope: bannerRef },
+);
+
+ 
+  useGSAP(
+    () => {
+      const ease = "power3.out";
+      gsap
+        .timeline({
+          scrollTrigger: {
+            trigger: offerRef.current,
+            start: "top 80%",
+          },
+        })
+        .fromTo(
+          ".anim-offer-label",
+          { opacity: 0, y: -14, letterSpacing: "0.05em" },
+          { opacity: 1, y: 0, letterSpacing: "0.25em", duration: 0.55, ease },
+        )
+        .fromTo(
+          ".anim-offer-heading",
+          { opacity: 0, y: 36 },
+          { opacity: 1, y: 0, duration: 0.8, ease },
+          "-=0.25",
+        )
+        .fromTo(
+          ".anim-offer-sub",
+          { opacity: 0, y: 18 },
+          { opacity: 1, y: 0, duration: 0.6, ease },
+          "-=0.3",
+        )
+        .fromTo(
+          ".anim-offer-btn",
+          { opacity: 0, y: 20, scale: 0.94 },
+          { opacity: 1, y: 0, scale: 1, duration: 0.65, ease: "back.out(1.5)" },
+          "-=0.2",
+        );
+    },
+    { scope: offerRef },
+
+  );
+
   const animatePanel = (panel, shouldOpen) => {
     if (!panel) return;
     if (shouldOpen) {
@@ -446,9 +515,6 @@ const ServicePage = () => {
             <span className="text-white text-[10px] font-bold tracking-[0.22em] uppercase">
               Glowing Results
             </span>
-            <span className="flex items-center justify-center">
-              <HugeiconsIcon icon={StarIcon} size={13} color="#b5345a" />
-            </span>
           </div>
         </div>
       </div>
@@ -458,7 +524,6 @@ const ServicePage = () => {
         className="w-full px-8 md:px-16 lg:px-24 pt-20 pb-12"
       >
         <div className="anim-facials-header flex items-center gap-4 mb-10">
-          <HugeiconsIcon icon={FlowerIcon} size={22} color="#b5345a" />
           <div>
             <h2 className="font-serif text-3xl text-[#1e0e14] font-normal">
               Facials
@@ -486,8 +551,6 @@ const ServicePage = () => {
 
       <div ref={waxingRef} className="w-full px-8 md:px-16 lg:px-24 pb-20">
         <div className="anim-waxing-header flex items-center gap-4 mb-10">
-          <HugeiconsIcon icon={SparklesIcon} size={22} color="#e09a3a" />
-
           <div>
             <h2 className="font-serif text-3xl text-[#1e0e14] font-normal">
               Waxing
@@ -512,6 +575,76 @@ const ServicePage = () => {
           ))}
         </div>
       </div>
+
+      <div 
+  ref={bannerRef} 
+  className="flex flex-col md:flex-row items-center md:items-start justify-center md:justify-around gap-12 md:gap-4 bg-[#2a1520] py-12 px-8 mb-6 w-full"
+>
+  <div className="anim-banner-item text-center max-w-62.5 md:max-w-50">
+    <div className="flex justify-center mb-4 text-4xl">
+      <HugeiconsIcon icon={ShampooIcon} size={45} color="white" />
+    </div>
+    <p className="text-white font-bold mb-2">Premium Products</p>
+    <p className="text-gray-400 text-sm leading-relaxed">
+      Every product we use is carefully selected for safety, efficacy, and skin compatibility.
+    </p>
+  </div>
+
+  <div className="anim-banner-item text-center max-w-62.5 md:max-w-50">
+    <div className="flex justify-center mb-4">
+      <HugeiconsIcon icon={TestTubeDiagonalIcon} size={45} color="white" />
+    </div>
+    <p className="text-white font-bold mb-2">Sterilized Tools</p>
+    <p className="text-gray-400 text-sm leading-relaxed">
+      All tools are thoroughly cleaned and sterilized before each session. Always.
+    </p>
+  </div>
+
+  <div className="anim-banner-item text-center max-w-62.5 md:max-w-50">
+    <div className="flex justify-center mb-4">
+      <HugeiconsIcon icon={Mortarboard02Icon} size={45} color="white" />
+    </div>
+    <p className="text-white font-bold mb-2">Trained Hands</p>
+    <p className="text-gray-400 text-sm leading-relaxed">
+      Our treatments are performed by trained, passionate therapists who care.
+    </p>
+  </div>
+
+  <div className="anim-banner-item text-center max-w-62.5 md:max-w-50">
+    <div className="flex justify-center mb-4">
+      <HugeiconsIcon icon={MailLove01Icon} size={45} color="white" />
+    </div>
+    <p className="text-white font-bold mb-2">Aftercare Support</p>
+    <p className="text-gray-400 text-sm leading-relaxed">
+      We guide you through your at-home routine to prolong every session's results.
+    </p>
+  </div>
+</div>
+      {/* ── NEW: Special Offer Banner ── */}
+      <div
+        ref={offerRef}
+        className="flex flex-col items-center justify-center text-center bg-[#fdf4f5] py-20 px-6 w-full"
+      >
+        <p className="anim-offer-label text-[#b05a72] text-xs tracking-[0.25em] uppercase font-medium mb-4">
+          Ready?
+        </p>
+
+        <h2 className="anim-offer-heading font-serif text-4xl md:text-5xl text-[#2e1a22] font-light leading-tight mb-4 max-w-3xl">
+          First-time clients get a{" "}
+          <span className="italic text-[#b05a72] font-normal">special offer</span>
+        </h2>
+
+        <p className="anim-offer-sub text-[#9e8a8e] text-sm md:text-base mb-10">
+          Limited slots available. Book early to secure your spot and your glow.
+        </p>
+
+        <Link to="/booking">
+          <button className="anim-offer-btn bg-[#a04060] hover:bg-[#8a3352] text-white text-xs md:text-sm tracking-[0.2em] uppercase font-medium px-10 py-4 rounded-full transition-colors duration-300">
+            Book Appointment Now
+          </button>
+        </Link>
+      </div>
+
     </section>
   );
 };
