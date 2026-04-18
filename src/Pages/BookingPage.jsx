@@ -1,5 +1,6 @@
-import { useEffect, useRef } from 'react';
-import gsap from 'gsap';
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import FormSection from "../Components/FormSection";
 
 const BookingPage = () => {
   const containerRef = useRef(null);
@@ -7,30 +8,30 @@ const BookingPage = () => {
   useEffect(() => {
     // Scoping GSAP to look only inside containerRef
     let ctx = gsap.context(() => {
-      const tl = gsap.timeline({ defaults: { ease: 'power4.out' } });
+      const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
 
       tl.fromTo(
-        '.anim-top',
+        ".anim-top",
         { y: 15, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.8, delay: 0.2 }
+        { y: 0, opacity: 1, duration: 0.8, delay: 0.2 },
       )
         .fromTo(
-          '.anim-heading',
+          ".anim-heading",
           { y: 40, opacity: 0 },
           { y: 0, opacity: 1, duration: 1.2 },
-          '-=0.6'
+          "-=0.6",
         )
         .fromTo(
-          '.anim-line',
+          ".anim-line",
           { scaleX: 0, opacity: 0 },
           { scaleX: 1, opacity: 1, duration: 1 },
-          '-=0.8'
+          "-=0.8",
         )
         .fromTo(
-          '.anim-sub',
+          ".anim-sub",
           { y: 15, opacity: 0 },
           { y: 0, opacity: 1, duration: 0.8 },
-          '-=0.6'
+          "-=0.6",
         );
     }, containerRef);
 
@@ -40,10 +41,10 @@ const BookingPage = () => {
   return (
     <section
       ref={containerRef}
-      className="flex min-h-[60vh] flex-col items-center justify-center bg-[#FCF1F4] px-4 text-center overflow-hidden mt-13"
+      className="flex min-h-[60vh] flex-col items-center justify-center bg-[#FCF1F4] px-4 text-center overflow-hidden"
     >
       {/* Label */}
-      <span className="anim-top mb-4 block text-[13px] font-semibold uppercase tracking-[0.3em] text-[#CD6A81]">
+      <span className="anim-top mb-4 mt-33 block text-[13px] font-semibold uppercase tracking-[0.3em] text-[#CD6A81]">
         Get in touch
       </span>
 
@@ -63,6 +64,8 @@ const BookingPage = () => {
       <p className="anim-sub font-serif text-xl italic text-[#5C5456]">
         Secure your spot. Your skin has been waiting.
       </p>
+
+      <FormSection />
     </section>
   );
 };
