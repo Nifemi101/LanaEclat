@@ -1,8 +1,24 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, forwardRef } from "react"; // Added forwardRef
 import gsap from "gsap";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
+
+// 1. Create the forwardRef component for the input
+const CustomDateInput = forwardRef(({ value, onClick, id, name, required, className }, ref) => (
+  <input
+    id={id}
+    name={name}
+    value={value}
+    onClick={onClick}
+    ref={ref}
+    required={required}
+    placeholder="dd/mm/yyyy"
+    readOnly // Prevents mobile keyboard from blocking the calendar
+    className={className}
+  />
+));
 
 const FormSection = () => {
   const treatmentData = [
@@ -16,8 +32,8 @@ const FormSection = () => {
     {
       id: "facial-03",
       type: "facial",
-      name: "Advanced treatment facials",
-      tag: "FOR PROBLEMATIC SKINS",
+      name: "Advanced facials treatment",
+      tag: "",
     },
     {
       id: "facial-04",
@@ -58,6 +74,9 @@ const FormSection = () => {
   const formRef = useRef(null);
   const cardsRef = useRef(null);
   const containerRef = useRef(null);
+  const submittedRef = useRef(false);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     let ctx = gsap.context(() => {
@@ -84,6 +103,35 @@ const FormSection = () => {
     }, containerRef);
     return () => ctx.revert();
   }, []);
+
+  useEffect(() => {
+    const handleFocus = () => {
+      if (!submittedRef.current) return;
+      submittedRef.current = false;
+
+      toast.success("Reservation sent! We'll confirm within 24hrs.", {
+        duration: 3000,
+        style: {
+          background: "#fff",
+          color: "#4A2E2A",
+          border: "1px solid #F9E9E8",
+          borderRadius: "12px",
+          fontWeight: "600",
+          padding: "14px 18px",
+          boxShadow: "0 4px 20px rgba(166,111,113,0.15)",
+        },
+        iconTheme: {
+          primary: "#A66F71",
+          secondary: "#fff",
+        },
+      });
+
+      setTimeout(() => navigate("/"), 3200);
+    };
+
+    window.addEventListener("focus", handleFocus);
+    return () => window.removeEventListener("focus", handleFocus);
+  }, [navigate]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -113,10 +161,11 @@ I would like to book an appointment:
 Looking forward to hearing from you!`.trim();
 
     const mailtoLink = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+    submittedRef.current = true;
     window.location.href = mailtoLink;
   };
 
-  // ── Inline WhatsApp SVG ──────────────────────────────────────────────────
   const WhatsAppIcon = () => (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -134,6 +183,8 @@ Looking forward to hearing from you!`.trim();
       ref={containerRef}
       className="min-h-screen p-4 sm:p-6 md:p-12 text-[#4A2E2A] font-sans"
     >
+      <Toaster position="top-center" />
+
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
         <section
           ref={formRef}
@@ -153,7 +204,6 @@ Looking forward to hearing from you!`.trim();
             </p>
           </div>
 
-          {/* ── Form grid: 1 col on mobile, 2 col on md+ ── */}
           <form
             onSubmit={handleFormSubmit}
             className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4"
@@ -192,7 +242,7 @@ Looking forward to hearing from you!`.trim();
                 name="email"
                 value={formData.email}
                 onChange={handleInputChange}
-                placeholder="you@email.com"
+                placeholder="your@email.com"
                 required
                 className="w-full p-3 rounded-xl border border-[#F9E9E8] placeholder-[#8D7B7A]/60 focus:outline-none focus:ring-1 focus:ring-[#A66F71]"
               />
@@ -262,9 +312,15 @@ Looking forward to hearing from you!`.trim();
                 placeholderText="dd/mm/yyyy"
                 required
                 wrapperClassName="w-full"
-                className="w-full p-3 rounded-xl border border-[#F9E9E8] placeholder-[#8D7B7A]/60 focus:outline-none focus:ring-1 focus:ring-[#A66F71]"
+                portalId="root-portal" // 2. Forces calendar to sit on top of everything
+                popperPlacement="top-start"
+                popperProps={{ strategy: "fixed" }}
                 customInput={
-                  <input type="text" id="date" name="date" required />
+                  <CustomDateInput
+                    id="date"
+                    name="date"
+                    className="w-full p-3 rounded-xl border border-[#F9E9E8] placeholder-[#8D7B7A]/60 focus:outline-none focus:ring-1 focus:ring-[#A66F71]"
+                  />
                 }
               />
             </div>
@@ -296,7 +352,7 @@ Looking forward to hearing from you!`.trim();
               </select>
             </div>
 
-            {/* Notes — spans full width at every breakpoint */}
+            {/* Notes */}
             <div className="anim-field col-span-1 md:col-span-2">
               <label
                 htmlFor="notes"
@@ -320,7 +376,7 @@ Looking forward to hearing from you!`.trim();
                 type="submit"
                 className="w-fit flex items-center justify-center gap-3 py-4 px-8 rounded-full bg-pink-800 text-white text-sm sm:text-base font-bold uppercase tracking-widest hover:bg-pink-900 transition duration-200"
               >
-                SEND RESERVATION REQUEST
+                SEND RESERVATION
               </button>
               <p className="text-xs text-[#8D7B7A] text-center max-w-sm">
                 This will open your email app with the details filled in. We'll
@@ -330,7 +386,7 @@ Looking forward to hearing from you!`.trim();
           </form>
         </section>
 
-        {/* ── Right sidebar cards ── */}
+        {/* Right sidebar */}
         <aside
           ref={cardsRef}
           className="anim-cards-section flex flex-col gap-6 col-span-1"
@@ -356,7 +412,7 @@ Looking forward to hearing from you!`.trim();
             </ul>
           </div>
 
-          {/* WhatsApp card — uses inline SVG component */}
+          {/* WhatsApp card */}
           <div className="bg-white rounded-3xl p-6 border border-[#F9E9E8] shadow-sm text-center flex flex-col items-center gap-4">
             <h2 className="text-2xl font-serif text-[#4A2E2A]">
               Prefer WhatsApp?
