@@ -1,6 +1,9 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
-import FormSection from "../Components/FormSection";
+import { lazy, Suspense } from "react";
+import SkeletonLoader from "../Components/SkeletonLoader";
+
+const FormSection = lazy(() => import("../Components/FormSection"));
 
 const BookingPage = () => {
   const containerRef = useRef(null);
@@ -65,7 +68,7 @@ const BookingPage = () => {
         Secure your spot. Your skin has been waiting.
       </p>
 
-      <FormSection />
+      <Suspense fallback={<SkeletonLoader />}><FormSection /></Suspense>
     </section>
   );
 };

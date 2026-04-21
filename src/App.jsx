@@ -4,20 +4,23 @@ import {
   createRoutesFromElements,
   RouterProvider,
 } from "react-router-dom";
-import HomePage from "./Pages/HomePage";
+import { lazy, Suspense } from "react";
 import MainLayout from "./Layout/MainLayout";
-import AbooutPage from "./Pages/AbooutPage";
-import ServicePage from "./Pages/ServicePage";
-import BookingPage from "./Pages/BookingPage";
+import SkeletonLoader from "./Components/SkeletonLoader";
+
+const HomePage = lazy(() => import("./Pages/HomePage"));
+const AbooutPage = lazy(() => import("./Pages/AbooutPage"));
+const ServicePage = lazy(() => import("./Pages/ServicePage"));
+const BookingPage = lazy(() => import("./Pages/BookingPage"));
 
 const App = () => {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/" element={<MainLayout />}>
-        <Route index element={<HomePage />} />
-        <Route path="/about" element={<AbooutPage />} />
-        <Route path="/services" element={<ServicePage />} />
-        <Route path="/booking" element={<BookingPage />} />
+        <Route index element={<Suspense fallback={<SkeletonLoader />}><HomePage /></Suspense>} />
+        <Route path="/about" element={<Suspense fallback={<SkeletonLoader />}><AbooutPage /></Suspense>} />
+        <Route path="/services" element={<Suspense fallback={<SkeletonLoader />}><ServicePage /></Suspense>} />
+        <Route path="/booking" element={<Suspense fallback={<SkeletonLoader />}><BookingPage /></Suspense>} />
       </Route>,
     ),
   );
