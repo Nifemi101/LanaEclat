@@ -5,7 +5,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { Link, useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 
-// 1. Create the forwardRef component for the input
+
 const CustomDateInput = forwardRef(({ value, onClick, id, name, required, className }, ref) => (
   <input
     id={id}
@@ -15,7 +15,7 @@ const CustomDateInput = forwardRef(({ value, onClick, id, name, required, classN
     ref={ref}
     required={required}
     placeholder="dd/mm/yyyy"
-    readOnly // Prevents mobile keyboard from blocking the calendar
+    readOnly 
     className={className}
   />
 ));
