@@ -8,8 +8,8 @@ export default defineConfig({
     port: 3000,
   },
   preview: {
+    host: true, // Ensures it listens on the right network interface
     port: 3000,
-    host: true,
-    allowedHosts: true,
+    allowedHosts: ['lanaeclat.pxxl.click', '.pxxl.click']
   },
 });
