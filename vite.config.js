@@ -4,15 +4,12 @@ import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
-
   server: {
     port: 3000,
-    allowedHosts: true,
   },
-
   preview: {
-    port: 3000,
     host: true,
-    allowedHosts: ["lanaeclat.pxxl.click"],
+    port: 3000,
+    allowedHosts: ["lanaeclat.pxxl.click", ".pxxl.click"],
   },
 });
