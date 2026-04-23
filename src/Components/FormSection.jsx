@@ -181,14 +181,14 @@ Looking forward to hearing from you!`.trim();
   return (
     <div
       ref={containerRef}
-      className="min-h-screen p-4 sm:p-6 md:p-12 text-[#4A2E2A] font-sans"
+      className="min-h-screen px-2 py-4 sm:p-6 md:p-12 text-[#4A2E2A] font-sans"
     >
       <Toaster position="top-center" />
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
         <section
           ref={formRef}
-          className="anim-form-section col-span-1 md:col-span-2 bg-white rounded-3xl p-10 sm:p-9 md:p-15 border-2 border-[#F9E9E8] shadow-sm"
+          className="anim-form-section col-span-1 md:col-span-2 bg-white rounded-3xl p-6 sm:p-9 md:p-15 border-2 border-[#F9E9E8] shadow-sm"
         >
           {/* Header */}
           <div className="mb-6 sm:mb-8 anim-field text-center">
@@ -312,7 +312,7 @@ Looking forward to hearing from you!`.trim();
                 placeholderText="dd/mm/yyyy"
                 required
                 wrapperClassName="w-full"
-                portalId="root-portal" // 2. Forces calendar to sit on top of everything
+                portalId="root-portal"
                 popperPlacement="top-start"
                 popperProps={{ strategy: "fixed" }}
                 customInput={

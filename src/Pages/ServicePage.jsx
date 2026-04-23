@@ -1,21 +1,15 @@
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { HugeiconsIcon } from "@hugeicons/react";
 import {
   ArrowRight01Icon,
   PlusSignIcon,
   MinusSignIcon,
-  Clock01Icon,
   ShampooIcon,
   TestTubeDiagonalIcon,
   Mortarboard02Icon,
-  MailLove01Icon
+  MailLove01Icon,
 } from "@hugeicons/core-free-icons";
-
-gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 const facials = [
   {
@@ -143,27 +137,24 @@ const waxing = [
   },
 ];
 
-const AccordionItem = ({ item, index, isOpen, onToggle, contentRef }) => (
+const AccordionItem = ({ item, index, isOpen, onToggle }) => (
   <div
     className={`transition-colors duration-300 ${
       isOpen ? "bg-[#fdf5f7]" : "bg-white"
     } ${index !== 0 ? "border-t border-[#e8cdd5]" : ""}`}
   >
+    {/* Header — always visible */}
     <button
       onClick={() => onToggle(item.id)}
-      className="w-full flex items-center gap-4 px-8 py-6 text-left group"
+      className="w-full flex items-start justify-between gap-4 px-6 py-5 text-left group"
     >
-      <span className="text-[#d4a0b0] font-serif text-2xl w-8 shrink-0 select-none">
-        {item.number}
-      </span>
-
       <div className="flex flex-col gap-1.5 flex-1 min-w-0">
-        <span className="font-semibold text-[#1e0e14] text-base md:text-lg">
+        <span className="font-semibold text-[#1e0e14] text-base">
           {item.name}
         </span>
         {item.badge && (
           <span
-            className="inline-flex self-start text-[7px] font-bold tracking-[0.2em] uppercase px-3 py-1 rounded-full text-white"
+            className="inline-flex self-start text-[7px] font-bold tracking-[0.18em] uppercase px-3 py-2 rounded-full text-white"
             style={{ backgroundColor: item.badgeColor }}
           >
             {item.badge}
@@ -171,45 +162,49 @@ const AccordionItem = ({ item, index, isOpen, onToggle, contentRef }) => (
         )}
       </div>
 
-      <div className="flex items-center gap-3 shrink-0">
-        <div className="flex items-center gap-1.5 text-[#9a7480]">
-          <HugeiconsIcon icon={Clock01Icon} size={14} color="#9a7480" />
-          <span className="text-sm">{item.duration}</span>
-        </div>
-        <div
-          className={`w-8 h-8 rounded-full border-2 flex items-center justify-center transition-all duration-200 ${
-            isOpen
-              ? "bg-[#b5345a] border-[#b5345a]"
-              : "bg-white border-[#d4a0b0] group-hover:border-[#b5345a]"
-          }`}
-        >
-          <HugeiconsIcon
-            icon={isOpen ? MinusSignIcon : PlusSignIcon}
-            size={14}
-            color={isOpen ? "#fff" : "#b5345a"}
-          />
-        </div>
+      <div
+        className={`mt-0.5 w-8 h-8 shrink-0 rounded-full border-2 flex items-center justify-center transition-all duration-200 ${
+          isOpen
+            ? "bg-[#b5345a] border-[#b5345a]"
+            : "bg-white border-[#d4a0b0] group-hover:border-[#b5345a]"
+        }`}
+      >
+        <HugeiconsIcon
+          icon={isOpen ? MinusSignIcon : PlusSignIcon}
+          size={14}
+          color={isOpen ? "#fff" : "#b5345a"}
+        />
       </div>
     </button>
 
-    <div ref={contentRef} style={{ overflow: "hidden" }}>
-      <div className="px-8 pb-8">
-        <div className="pl-14">
-          <p className="text-[#5c3d47] text-sm md:text-base leading-relaxed mb-6">
+    {/* Expandable content */}
+    <div
+      style={{
+        display: "grid",
+        gridTemplateRows: isOpen ? "1fr" : "0fr",
+        transition: "grid-template-rows 0.4s ease",
+      }}
+    >
+      <div style={{ overflow: "hidden" }}>
+        <div className="px-6 pb-6 flex flex-col gap-5">
+          {/* Description */}
+          <p className="text-[#5c3d47] text-sm leading-relaxed">
             {item.description}
           </p>
-          <div className="flex flex-wrap items-center justify-between gap-4">
-            <div className="flex items-center gap-6">
-              <Link to="/booking">
-                <button className="bg-pink-800 text-white text-[10px] font-bold tracking-[0.2em] uppercase px-6 py-3 rounded-full hover:bg-pink-900 transition-colors duration-200">
-                  BOOK
-                </button>
-              </Link>
-              <span className="text-[#9a7480] text-sm">
-                Session: {item.session}
-              </span>
-            </div>
-            <span className="font-mono text-2xl text-[#b5345a]">
+
+          {/* Full-width Book button */}
+          <Link to="/booking" className="w-full">
+            <button className="w-full md:w-50 bg-[#9D174D] hover:bg-[#831440] text-white text-[11px] font-bold tracking-[0.2em] uppercase py-3.5 rounded-full transition-colors duration-200">
+              BOOK THIS TREATMENT
+            </button>
+          </Link>
+
+          {/* Session + Price row */}
+          <div className="flex items-center justify-between">
+            <span className="text-[#9a7480] text-sm">
+              Session: {item.session}
+            </span>
+            <span className="font-mono text-xl font-semibold text-[#b5345a]">
               {item.price}
             </span>
           </div>
@@ -220,298 +215,60 @@ const AccordionItem = ({ item, index, isOpen, onToggle, contentRef }) => (
 );
 
 const ServicePage = () => {
-  const heroRef = useRef(null);
-  const facialsRef = useRef(null);
-  const waxingRef = useRef(null);
-  const bannerRef = useRef(null);
-  // ── NEW ──
-  const offerRef = useRef(null);
-
   const [openId, setOpenId] = useState(null);
-
-  const facialContentRefs = useRef([]);
-  const waxingContentRefs = useRef([]);
-
-  useGSAP(
-    () => {
-      const ease = "power4.out";
-      gsap
-        .timeline()
-        .fromTo(
-          ".anim-label",
-          { opacity: 0, y: 16 },
-          { opacity: 1, y: 0, duration: 0.6, ease },
-        )
-        .fromTo(
-          ".anim-heading",
-          { opacity: 0, y: 50 },
-          { opacity: 1, y: 0, duration: 1, ease },
-          "-=0.3",
-        )
-        .fromTo(
-          ".anim-divider",
-          { scaleX: 0, opacity: 0 },
-          {
-            scaleX: 1,
-            opacity: 1,
-            duration: 0.8,
-            ease,
-            transformOrigin: "center",
-          },
-          "-=0.5",
-        )
-        .fromTo(
-          ".anim-sub",
-          { opacity: 0, y: 20 },
-          { opacity: 1, y: 0, duration: 0.8, ease },
-          "-=0.4",
-        )
-        .fromTo(
-          ".anim-bar",
-          { opacity: 0, y: 20 },
-          { opacity: 1, y: 0, duration: 0.7, ease },
-          "-=0.3",
-        )
-        .fromTo(
-          ".anim-step",
-          { opacity: 0, y: 12 },
-          { opacity: 1, y: 0, duration: 0.6, ease, stagger: 0.12 },
-          "-=0.4",
-        );
-    },
-    { scope: heroRef },
-  );
-
-  useGSAP(
-    () => {
-      const ease = "power3.out";
-      gsap.fromTo(
-        ".anim-facials-header",
-        { opacity: 0, y: 30 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          ease,
-          scrollTrigger: {
-            trigger: ".anim-facials-header",
-            start: "top 85%",
-          },
-        },
-      );
-      gsap.fromTo(
-        ".anim-facials-row",
-        { opacity: 0, y: 24 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.65,
-          ease,
-          stagger: 0.1,
-          scrollTrigger: {
-            trigger: ".anim-facials-wrapper",
-            start: "top 80%",
-          },
-        },
-      );
-    },
-    { scope: facialsRef },
-  );
-
-  useGSAP(
-    () => {
-      const ease = "power3.out";
-      gsap.fromTo(
-        ".anim-waxing-header",
-        { opacity: 0, x: -30 },
-        {
-          opacity: 1,
-          x: 0,
-          duration: 0.8,
-          ease,
-          scrollTrigger: {
-            trigger: ".anim-waxing-header",
-            start: "top 85%",
-          },
-        },
-      );
-      gsap.fromTo(
-        ".anim-waxing-row",
-        { opacity: 0, y: 28, scale: 0.98 },
-        {
-          opacity: 1,
-          y: 0,
-          scale: 1,
-          duration: 0.6,
-          ease,
-          stagger: 0.09,
-          scrollTrigger: {
-            trigger: ".anim-waxing-wrapper",
-            start: "top 82%",
-          },
-        },
-      );
-    },
-    { scope: waxingRef },
-  );
-
-  useGSAP(
-  () => {
-    const ease = "power3.out";
-    gsap.fromTo(
-      ".anim-banner-item",
-      { opacity: 0, y: 40, scale: 0.95 },
-      {
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        duration: 0.7,
-        ease,
-        stagger: 0.15,
-        scrollTrigger: {
-          trigger: bannerRef.current,
-          start: "top 80%",
-        },
-      },
-    );
-  },
-  { scope: bannerRef },
-);
-
- 
-  useGSAP(
-    () => {
-      const ease = "power3.out";
-      gsap
-        .timeline({
-          scrollTrigger: {
-            trigger: offerRef.current,
-            start: "top 80%",
-          },
-        })
-        .fromTo(
-          ".anim-offer-label",
-          { opacity: 0, y: -14, letterSpacing: "0.05em" },
-          { opacity: 1, y: 0, letterSpacing: "0.25em", duration: 0.55, ease },
-        )
-        .fromTo(
-          ".anim-offer-heading",
-          { opacity: 0, y: 36 },
-          { opacity: 1, y: 0, duration: 0.8, ease },
-          "-=0.25",
-        )
-        .fromTo(
-          ".anim-offer-sub",
-          { opacity: 0, y: 18 },
-          { opacity: 1, y: 0, duration: 0.6, ease },
-          "-=0.3",
-        )
-        .fromTo(
-          ".anim-offer-btn",
-          { opacity: 0, y: 20, scale: 0.94 },
-          { opacity: 1, y: 0, scale: 1, duration: 0.65, ease: "back.out(1.5)" },
-          "-=0.2",
-        );
-    },
-    { scope: offerRef },
-
-  );
-
-  const animatePanel = (panel, shouldOpen) => {
-    if (!panel) return;
-    if (shouldOpen) {
-      gsap.set(panel, { display: "block" });
-      gsap.fromTo(
-        panel,
-        { height: 0, opacity: 0 },
-        {
-          height: panel.scrollHeight,
-          opacity: 1,
-          duration: 0.5,
-          ease: "power3.out",
-          onComplete: () => gsap.set(panel, { height: "auto" }),
-        },
-      );
-    } else {
-      gsap.to(panel, {
-        height: 0,
-        opacity: 0,
-        duration: 0.4,
-        ease: "power3.inOut",
-        onComplete: () => gsap.set(panel, { display: "none" }),
-      });
-    }
-  };
-
-  useEffect(() => {
-    const allRefs = [
-      ...facialContentRefs.current,
-      ...waxingContentRefs.current,
-    ];
-    const allIds = [...facials.map((f) => f.id), ...waxing.map((w) => w.id)];
-    allRefs.forEach((panel, i) => {
-      animatePanel(panel, allIds[i] === openId);
-    });
-  }, [openId]);
-
-  useEffect(() => {
-    [...facialContentRefs.current, ...waxingContentRefs.current].forEach(
-      (panel) => {
-        if (panel) gsap.set(panel, { height: 0, opacity: 0, display: "none" });
-      },
-    );
-  }, []);
 
   const handleToggle = (id) => {
     setOpenId((prev) => (prev === id ? null : id));
   };
 
   return (
-    <section ref={heroRef} className="bg-[#fdf0f3] pt-36 pb-0 flex flex-col">
+    <section className="bg-[#fdf0f3] pt-36 pb-0 flex flex-col">
+      {/* ── HERO ── */}
       <div className="flex flex-col items-center text-center px-8 md:px-16 lg:px-24 pb-16">
-        <p className="anim-label text-[10px] font-semibold tracking-[0.28em] uppercase text-[#b5345a] mb-5">
+        <p className="text-[10px] font-semibold tracking-[0.28em] uppercase text-[#b5345a] mb-5">
           What We Offer
         </p>
-        <h1 className="anim-heading font-serif text-6xl md:text-7xl lg:text-8xl text-[#1e0e14] font-normal leading-tight">
+        <h1 className="font-serif text-6xl md:text-7xl lg:text-8xl text-[#1e0e14] font-normal leading-tight">
           Our <span className="italic text-[#b5345a]">Treatments</span>
         </h1>
-        <div className="anim-divider flex items-center gap-3 mt-7 mb-7 w-full max-w-xl">
+        <div className="flex items-center gap-3 mt-7 mb-7 w-full max-w-xl">
           <div className="h-px flex-1 bg-[#e0b8c4]" />
           <span className="text-[#b5345a] text-sm">◆</span>
           <div className="h-px flex-1 bg-[#e0b8c4]" />
         </div>
-        <p className="anim-sub font-serif italic text-[#7a5a62] text-lg md:text-xl">
+        <p className="font-serif italic text-[#7a5a62] text-lg md:text-xl">
           10 professional treatments across massages, facials and waxing.
         </p>
       </div>
 
-      <div className="anim-bar bg-[#1e0a14] w-full px-8 md:px-16 lg:px-24 py-5">
+      {/* ── PROCESS BAR ── */}
+      <div className="bg-[#1e0a14] w-full px-8 md:px-16 lg:px-24 py-5">
         <div className="flex flex-wrap items-center justify-center md:justify-between gap-4 md:gap-0">
-          <div className="anim-step flex items-center gap-3">
+          <div className="flex items-center gap-3">
             <span className="text-white text-[10px] font-bold tracking-[0.22em] uppercase">
               Consultation
             </span>
           </div>
-          <span className="anim-step md:flex items-center justify-center">
+          <span className="md:flex items-center justify-center">
             <HugeiconsIcon icon={ArrowRight01Icon} size={13} color="#b5345a" />
           </span>
-          <div className="anim-step flex items-center gap-3">
+          <div className="flex items-center gap-3">
             <span className="text-white text-[10px] font-bold tracking-[0.22em] uppercase">
               Custom Treatment
             </span>
           </div>
-          <span className="anim-step md:flex items-center justify-center">
+          <span className="md:flex items-center justify-center">
             <HugeiconsIcon icon={ArrowRight01Icon} size={13} color="#b5345a" />
           </span>
-          <div className="anim-step flex items-center gap-3">
+          <div className="flex items-center gap-3">
             <span className="text-white text-[10px] font-bold tracking-[0.22em] uppercase">
               Aftercare Advice
             </span>
           </div>
-          <span className="anim-step md:flex items-center justify-center">
+          <span className="md:flex items-center justify-center">
             <HugeiconsIcon icon={ArrowRight01Icon} size={13} color="#b5345a" />
           </span>
-          <div className="anim-step flex items-center gap-3">
+          <div className="flex items-center gap-3">
             <span className="text-white text-[10px] font-bold tracking-[0.22em] uppercase">
               Glowing Results
             </span>
@@ -519,11 +276,9 @@ const ServicePage = () => {
         </div>
       </div>
 
-      <div
-        ref={facialsRef}
-        className="w-full px-8 md:px-16 lg:px-24 pt-20 pb-12"
-      >
-        <div className="anim-facials-header flex items-center gap-4 mb-10">
+      {/* ── FACIALS ── */}
+      <div className="w-full px-8 md:px-16 lg:px-24 pt-20 pb-12">
+        <div className="flex items-center gap-4 mb-10">
           <div>
             <h2 className="font-serif text-3xl text-[#1e0e14] font-normal">
               Facials
@@ -534,23 +289,22 @@ const ServicePage = () => {
           </div>
         </div>
 
-        <div className="anim-facials-wrapper border border-[#e8cdd5] rounded-2xl overflow-hidden">
+        <div className="border border-[#e8cdd5] rounded-2xl overflow-hidden">
           {facials.map((item, index) => (
-            <div key={item.id} className="anim-facials-row">
-              <AccordionItem
-                item={item}
-                index={index}
-                isOpen={openId === item.id}
-                onToggle={handleToggle}
-                contentRef={(el) => (facialContentRefs.current[index] = el)}
-              />
-            </div>
+            <AccordionItem
+              key={item.id}
+              item={item}
+              index={index}
+              isOpen={openId === item.id}
+              onToggle={handleToggle}
+            />
           ))}
         </div>
       </div>
 
-      <div ref={waxingRef} className="w-full px-8 md:px-16 lg:px-24 pb-20">
-        <div className="anim-waxing-header flex items-center gap-4 mb-10">
+      {/* ── WAXING ── */}
+      <div className="w-full px-8 md:px-16 lg:px-24 pb-20">
+        <div className="flex items-center gap-4 mb-10">
           <div>
             <h2 className="font-serif text-3xl text-[#1e0e14] font-normal">
               Waxing
@@ -561,90 +315,83 @@ const ServicePage = () => {
           </div>
         </div>
 
-        <div className="anim-waxing-wrapper border border-[#e8cdd5] rounded-2xl overflow-hidden">
+        <div className="border border-[#e8cdd5] rounded-2xl overflow-hidden">
           {waxing.map((item, index) => (
-            <div key={item.id} className="anim-waxing-row">
-              <AccordionItem
-                item={item}
-                index={index}
-                isOpen={openId === item.id}
-                onToggle={handleToggle}
-                contentRef={(el) => (waxingContentRefs.current[index] = el)}
-              />
-            </div>
+            <AccordionItem
+              key={item.id}
+              item={item}
+              index={index}
+              isOpen={openId === item.id}
+              onToggle={handleToggle}
+            />
           ))}
         </div>
       </div>
 
-      <div 
-  ref={bannerRef} 
-  className="flex flex-col md:flex-row items-center md:items-start justify-center md:justify-around gap-12 md:gap-4 bg-[#2a1520] py-12 px-8 mb-6 w-full"
->
-  <div className="anim-banner-item text-center max-w-62.5 md:max-w-50">
-    <div className="flex justify-center mb-4 text-4xl">
-      <HugeiconsIcon icon={ShampooIcon} size={45} color="white" />
-    </div>
-    <p className="text-white font-bold mb-2">Premium Products</p>
-    <p className="text-gray-400 text-sm leading-relaxed">
-      Every product we use is carefully selected for safety, efficacy, and skin compatibility.
-    </p>
-  </div>
+      {/* ── TRUST BANNER ── */}
+      <div className="flex flex-col md:flex-row items-center md:items-start justify-center md:justify-around gap-12 md:gap-4 bg-[#2a1520] py-12 px-8 mb-6 w-full">
+        <div className="text-center max-w-62.5 md:max-w-50">
+          <div className="flex justify-center mb-4">
+            <HugeiconsIcon icon={ShampooIcon} size={45} color="white" />
+          </div>
+          <p className="text-white font-bold mb-2">Premium Products</p>
+          <p className="text-gray-400 text-sm leading-relaxed">
+            Every product we use is carefully selected for safety, efficacy, and skin compatibility.
+          </p>
+        </div>
 
-  <div className="anim-banner-item text-center max-w-62.5 md:max-w-50">
-    <div className="flex justify-center mb-4">
-      <HugeiconsIcon icon={TestTubeDiagonalIcon} size={45} color="white" />
-    </div>
-    <p className="text-white font-bold mb-2">Sterilized Tools</p>
-    <p className="text-gray-400 text-sm leading-relaxed">
-      All tools are thoroughly cleaned and sterilized before each session. Always.
-    </p>
-  </div>
+        <div className="text-center max-w-62.5 md:max-w-50">
+          <div className="flex justify-center mb-4">
+            <HugeiconsIcon icon={TestTubeDiagonalIcon} size={45} color="white" />
+          </div>
+          <p className="text-white font-bold mb-2">Sterilized Tools</p>
+          <p className="text-gray-400 text-sm leading-relaxed">
+            All tools are thoroughly cleaned and sterilized before each session. Always.
+          </p>
+        </div>
 
-  <div className="anim-banner-item text-center max-w-62.5 md:max-w-50">
-    <div className="flex justify-center mb-4">
-      <HugeiconsIcon icon={Mortarboard02Icon} size={45} color="white" />
-    </div>
-    <p className="text-white font-bold mb-2">Trained Hands</p>
-    <p className="text-gray-400 text-sm leading-relaxed">
-      Our treatments are performed by trained, passionate therapists who care.
-    </p>
-  </div>
+        <div className="text-center max-w-62.5 md:max-w-50">
+          <div className="flex justify-center mb-4">
+            <HugeiconsIcon icon={Mortarboard02Icon} size={45} color="white" />
+          </div>
+          <p className="text-white font-bold mb-2">Trained Hands</p>
+          <p className="text-gray-400 text-sm leading-relaxed">
+            Our treatments are performed by trained, passionate therapists who care.
+          </p>
+        </div>
 
-  <div className="anim-banner-item text-center max-w-62.5 md:max-w-50">
-    <div className="flex justify-center mb-4">
-      <HugeiconsIcon icon={MailLove01Icon} size={45} color="white" />
-    </div>
-    <p className="text-white font-bold mb-2">Aftercare Support</p>
-    <p className="text-gray-400 text-sm leading-relaxed">
-      We guide you through your at-home routine to prolong every session's results.
-    </p>
-  </div>
-</div>
-      {/* ── NEW: Special Offer Banner ── */}
-      <div
-        ref={offerRef}
-        className="flex flex-col items-center justify-center text-center bg-[#fdf4f5] py-20 px-6 w-full"
-      >
-        <p className="anim-offer-label text-[#b05a72] text-xs tracking-[0.25em] uppercase font-medium mb-4">
+        <div className="text-center max-w-62.5 md:max-w-50">
+          <div className="flex justify-center mb-4">
+            <HugeiconsIcon icon={MailLove01Icon} size={45} color="white" />
+          </div>
+          <p className="text-white font-bold mb-2">Aftercare Support</p>
+          <p className="text-gray-400 text-sm leading-relaxed">
+            We guide you through your at-home routine to prolong every session's results.
+          </p>
+        </div>
+      </div>
+
+      {/* ── SPECIAL OFFER BANNER ── */}
+      <div className="flex flex-col items-center justify-center text-center bg-[#fdf4f5] py-20 px-6 w-full">
+        <p className="text-[#b05a72] text-xs tracking-[0.25em] uppercase font-medium mb-4">
           Ready?
         </p>
 
-        <h2 className="anim-offer-heading font-serif text-4xl md:text-5xl text-[#2e1a22] font-light leading-tight mb-4 max-w-3xl">
+        <h2 className="font-serif text-4xl md:text-5xl text-[#2e1a22] font-light leading-tight mb-4 max-w-3xl">
           First-time clients get a{" "}
           <span className="italic text-[#b05a72] font-normal">special offer</span>
         </h2>
 
-        <p className="anim-offer-sub text-[#9e8a8e] text-sm md:text-base mb-10">
+        <p className="text-[#9e8a8e] text-sm md:text-base mb-10">
           Limited slots available. Book early to secure your spot and your glow.
         </p>
 
         <Link to="/booking">
-          <button className="anim-offer-btn bg-[#a04060] hover:bg-[#8a3352] text-white text-xs md:text-sm tracking-[0.2em] uppercase font-medium px-10 py-4 rounded-full transition-colors duration-300">
+          <button className="bg-[#a04060] hover:bg-[#8a3352] text-white text-xs md:text-sm tracking-[0.2em] uppercase font-medium px-10 py-4 rounded-full transition-colors duration-300">
             Book Appointment Now
           </button>
         </Link>
       </div>
-
     </section>
   );
 };
