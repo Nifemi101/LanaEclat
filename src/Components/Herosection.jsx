@@ -38,12 +38,12 @@ const Herosection = () => {
         .from(".hero-subtitle", { y: 20, opacity: 0, duration: 0.8 }, "-=0.6")
         .from(
           ".hero-btn",
-          { 
-            y: 30, 
-            opacity: 0, 
-            duration: 1, 
-            stagger: 0.15, 
-            clearProps: "all" 
+          {
+            y: 30,
+            opacity: 0,
+            duration: 1,
+            stagger: 0.15,
+            clearProps: "all",
           },
           "-=0.5",
         )
@@ -85,18 +85,16 @@ const Herosection = () => {
           "Because glowing skin is not a luxury—it's a lifestyle."
         </p>
 
-        <div className="flex space-x-5 mb-12">
-        <Link
-        to= "/booking">
-          <button className="hero-btn bg-pink-800 text-white p-4 md:px-8 md:py-3 text-xs md:text-base rounded-full font-medium hover:bg-pink-900 transition-colors shadow-lg hover:shadow-pink-200/50 whitespace-nowrap">
-            BOOK APPOINTMENT
-          </button>
+        <div className="flex items-center space-x-5 mb-12">
+          <Link to="/booking">
+            <button className="hero-btn bg-pink-800 text-white px-6 py-3 md:px-8 md:py-3 text-xs md:text-base rounded-full font-medium hover:bg-pink-900 transition-colors shadow-lg hover:shadow-pink-200/50 whitespace-nowrap">
+              BOOK APPOINTMENT
+            </button>
           </Link>
-          <Link
-          to= "/services">
-          <button className="hero-btn border-2 border-pink-200 text-pink-800 px-3 py-2 md:px-8 md:py-3 text-xs md:text-base rounded-full font-medium hover:bg-pink-800 hover:text-white transition-colors whitespace-nowrap">
-            OUR SERVICES
-          </button>
+          <Link to="/services">
+            <button className="hero-btn border-2 border-pink-200 text-pink-800 px-6 py-3 md:px-8 md:py-3 text-xs md:text-base rounded-full font-medium hover:bg-pink-800 hover:text-white transition-colors whitespace-nowrap">
+              OUR SERVICES
+            </button>
           </Link>
         </div>
 

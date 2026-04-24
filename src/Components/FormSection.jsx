@@ -140,7 +140,7 @@ const FormSection = () => {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    const recipient = "adekogbe08@gmail.com";
+    const recipient = "evelynolugbamiye@gmail.com";
     const fullNameUpper = formData.fullName.toUpperCase();
     const subject = `Appointment Request - Lana Eclat Beauty Studio — ${fullNameUpper}`;
     const formattedDate = formData.date.toISOString().slice(0, 10);
